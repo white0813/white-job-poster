@@ -105,6 +105,15 @@ button:hover{transform:translateY(-1px)}
 <div class="field"><label>聯絡方式</label><input id="contact" type="text" value="LINE：@whitejob｜電話：02-2345-6789" maxlength="60"></div>
 <div class="section-label">AI 招募文案輔助 <span class="demo-tag">示範模式</span></div>
 <div class="ai-box"><div class="ai-title">✦ 智慧文案小幫手</div><p>目前為本機示範模式，依照產業與職缺資訊產生文案範例；尚未連接外部 AI 服務。</p><button id="aiBtn">✦ 幫我優化招募文案</button></div>
+<div class="section-label">AI 智慧背景生成 <span class="demo-tag">AI 生成</span></div>
+<div class="ai-box" style="background:#f5f8ff;border-color:#dce6f5">
+<div class="ai-title" style="color:#29496f">✦ 為你的職缺打造專屬背景</div>
+<p style="color:#65758b">依照產業、職缺和風格生成背景圖片。海報文字會另外排版，不會烙印在圖片裡。</p>
+<div class="field"><label for="bgStyle">背景風格</label><select id="bgStyle"><option value="professional">專業商務</option><option value="warm">溫暖親切</option><option value="bright">明亮活潑</option><option value="modern">科技未來</option><option value="photo">自然寫實</option></select></div>
+<button id="bgBtn" style="background:#29496f;color:white">✦ AI 生成背景圖片</button>
+<button id="plainBgBtn" class="btn-outline" style="width:100%;margin-top:8px">恢復純色背景</button>
+<p id="bgStatus" aria-live="polite" style="margin-bottom:0">每次生成可能產生 AI 使用費用。</p>
+</div>
 <div class="section-label">選擇海報模板</div><div class="template-grid" id="templates"></div>
 <div class="section-label">選擇主題配色</div><div class="palette" id="palette"></div><div class="custom-color"><input id="customColor" type="color" value="#d99b42"><span>自訂品牌主色</span></div>
 <div class="section-label">輸出尺寸</div><div class="size-row" id="sizes"><button class="size-btn active" data-size="portrait">社群貼文<br>1080×1350</button><button class="size-btn" data-size="story">限時動態<br>1080×1920</button><button class="size-btn" data-size="a4">A4 印刷<br>2480×3508</button></div>
@@ -116,7 +125,7 @@ const $=id=>document.getElementById(id);
 const industries=['餐飲服務','零售門市','物流運輸','行政文書','科技資訊','教育補教','醫療照護','旅宿觀光','美容美髮','製造技術','設計創意','其他產業'];
 const templates=[['經典醒目','bold'],['質感留白','minimal'],['活力招募','split'],['都會專業','modern'],['溫暖親切','warm'],['潮流個性','urban']];
 const themes=[['暖金','#d99b42','#17263b','#fff8eb'],['海軍藍','#27496d','#f4f0e7','#17263b'],['森林綠','#47745d','#f5f1e8','#20372c'],['活力橘','#ef7d45','#fff3e9','#40251b'],['莓果紅','#a84452','#fff2f0','#3c2027'],['科技紫','#7564a8','#f5f1ff','#27203d'],['清新青','#3b9290','#f0fbf8','#183b3b'],['黑白極簡','#252b35','#f5f5f2','#20242a']];
-let state={industry:'餐飲服務',template:'bold',theme:0,color:themes[0][1],size:'portrait'};
+let state={industry:'餐飲服務',template:'bold',theme:0,color:themes[0][1],size:'portrait'};\nlet backgroundImage=null;
 function buildChoices(){
 $('industries').innerHTML=industries.map(x=>`<button class="industry ${x===state.industry?'active':''}" data-industry="${x}">${x}</button>`).join('');
 $('templates').innerHTML=templates.map(([n,k])=>`<button class="template ${k===state.template?'active':''}" data-template="${k}"><div class="thumb"></div><b>${n}</b></button>`).join('');
@@ -129,7 +138,7 @@ const c=$('poster'),ctx=c.getContext('2d'),d=getData();let W=1080,H=1350;
 if(state.size==='story')H=1920;
 if(state.size==='a4'){W=2480;H=3508}
 c.width=W;c.height=H;const accent=state.color,theme=themes[state.theme<0?0:state.theme],dark=theme[2],ink=theme[3];
-ctx.fillStyle=dark;ctx.fillRect(0,0,W,H);
+ctx.fillStyle=dark;ctx.fillRect(0,0,W,H);\nif(backgroundImage){const r=Math.max(W/backgroundImage.width,H/backgroundImage.height),bw=backgroundImage.width*r,bh=backgroundImage.height*r;ctx.drawImage(backgroundImage,(W-bw)/2,(H-bh)/2,bw,bh);ctx.fillStyle='rgba(12,23,39,.58)';ctx.fillRect(0,0,W,H);}
 if(state.template==='bold'){ctx.fillStyle=accent;ctx.fillRect(0,0,W,H*.34);ctx.fillStyle=ink;ctx.beginPath();ctx.arc(W*.92,H*.06,H*.23,0,Math.PI*2);ctx.fill()}
 if(state.template==='minimal'){ctx.fillStyle=accent;ctx.fillRect(W*.075,H*.07,W*.85,H*.012)}
 if(state.template==='split'){ctx.fillStyle=accent;ctx.fillRect(0,0,W*.25,H)}
@@ -158,6 +167,24 @@ $('palette').addEventListener('click',e=>{let b=e.target.closest('[data-theme]')
 $('customColor').addEventListener('input',e=>{state.color=e.target.value;state.theme=-1;buildChoices();drawPoster()});
 document.querySelectorAll('.size-btn').forEach(b=>b.addEventListener('click',()=>{state.size=b.dataset.size;document.querySelectorAll('.size-btn').forEach(x=>x.classList.toggle('active',x===b));drawPoster()}));
 document.querySelectorAll('input[type=text],textarea').forEach(el=>el.addEventListener('input',drawPoster));
+
+$('bgBtn').onclick=async()=>{
+ const btn=$('bgBtn'),status=$('bgStatus'),d=getData();
+ btn.disabled=true;btn.textContent='正在生成背景…';status.textContent='AI 正在設計背景，請稍候。';
+ const styles={professional:'professional commercial photography, polished corporate atmosphere',warm:'warm welcoming natural light, friendly atmosphere',bright:'bright energetic cheerful colors, lively composition',modern:'modern futuristic technology, clean geometric lighting',photo:'natural photorealistic editorial photography'};
+ const prompt='Create a premium vertical recruitment poster BACKGROUND image only. Industry: '+d.industry+'. Job: '+d.job+'. Visual style: '+styles[$('bgStyle').value]+'. Brand accent color: '+d.color+'. Show a suitable attractive scene for this industry. Absolutely no text, letters, words, typography, logos, signs, or watermark. Leave generous calm negative space for poster text overlay. Portrait advertising photography.';
+ try{
+  const response=await fetch('/api/generate-background',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt})});
+  const result=await response.json();
+  if(!response.ok)throw new Error(result.error||'生成失敗，請稍後再試');
+  const img=new Image();
+  img.onload=()=>{backgroundImage=img;drawPoster();status.textContent='背景已生成並套用！可重新生成或恢復純色背景。';toast('AI 背景已套用')};
+  img.onerror=()=>{status.textContent='圖片載入失敗，請再試一次'};
+  img.src=result.image;
+ }catch(error){status.textContent=error.message||'生成失敗，請稍後再試';toast('背景生成失敗')}
+ finally{btn.disabled=false;btn.textContent='✦ 再生成一張背景'}
+};
+$('plainBgBtn').onclick=()=>{backgroundImage=null;drawPoster();$('bgStatus').textContent='已恢復原本的純色背景。';toast('已恢復純色背景')};
 $('refreshBtn').onclick=()=>{drawPoster();toast('海報預覽已更新')};
 $('downloadBtn').onclick=()=>{drawPoster();const a=document.createElement('a');a.download=`JOB-POSTER-${Date.now()}.png`;a.href=$('poster').toDataURL('image/png');a.click();toast('高畫質 PNG 已準備下載')};
 $('saveBtn').onclick=()=>{try{localStorage.setItem('whiteJobPosterDraft',JSON.stringify(getData()));toast('草稿已儲存在此瀏覽器')}catch(e){toast('無法儲存，請稍後再試')}};
