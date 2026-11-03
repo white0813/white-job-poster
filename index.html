@@ -125,7 +125,8 @@ const $=id=>document.getElementById(id);
 const industries=['餐飲服務','零售門市','物流運輸','行政文書','科技資訊','教育補教','醫療照護','旅宿觀光','美容美髮','製造技術','設計創意','其他產業'];
 const templates=[['經典醒目','bold'],['質感留白','minimal'],['活力招募','split'],['都會專業','modern'],['溫暖親切','warm'],['潮流個性','urban']];
 const themes=[['暖金','#d99b42','#17263b','#fff8eb'],['海軍藍','#27496d','#f4f0e7','#17263b'],['森林綠','#47745d','#f5f1e8','#20372c'],['活力橘','#ef7d45','#fff3e9','#40251b'],['莓果紅','#a84452','#fff2f0','#3c2027'],['科技紫','#7564a8','#f5f1ff','#27203d'],['清新青','#3b9290','#f0fbf8','#183b3b'],['黑白極簡','#252b35','#f5f5f2','#20242a']];
-let state={industry:'餐飲服務',template:'bold',theme:0,color:themes[0][1],size:'portrait'};\nlet backgroundImage=null;
+let state={industry:'餐飲服務',template:'bold',theme:0,color:themes[0][1],size:'portrait'};
+let backgroundImage=null;
 function buildChoices(){
 $('industries').innerHTML=industries.map(x=>`<button class="industry ${x===state.industry?'active':''}" data-industry="${x}">${x}</button>`).join('');
 $('templates').innerHTML=templates.map(([n,k])=>`<button class="template ${k===state.template?'active':''}" data-template="${k}"><div class="thumb"></div><b>${n}</b></button>`).join('');
@@ -138,7 +139,8 @@ const c=$('poster'),ctx=c.getContext('2d'),d=getData();let W=1080,H=1350;
 if(state.size==='story')H=1920;
 if(state.size==='a4'){W=2480;H=3508}
 c.width=W;c.height=H;const accent=state.color,theme=themes[state.theme<0?0:state.theme],dark=theme[2],ink=theme[3];
-ctx.fillStyle=dark;ctx.fillRect(0,0,W,H);\nif(backgroundImage){const r=Math.max(W/backgroundImage.width,H/backgroundImage.height),bw=backgroundImage.width*r,bh=backgroundImage.height*r;ctx.drawImage(backgroundImage,(W-bw)/2,(H-bh)/2,bw,bh);ctx.fillStyle='rgba(12,23,39,.58)';ctx.fillRect(0,0,W,H);}
+ctx.fillStyle=dark;ctx.fillRect(0,0,W,H);
+if(backgroundImage){const r=Math.max(W/backgroundImage.width,H/backgroundImage.height),bw=backgroundImage.width*r,bh=backgroundImage.height*r;ctx.drawImage(backgroundImage,(W-bw)/2,(H-bh)/2,bw,bh);ctx.fillStyle='rgba(12,23,39,.58)';ctx.fillRect(0,0,W,H);}
 if(state.template==='bold'){ctx.fillStyle=accent;ctx.fillRect(0,0,W,H*.34);ctx.fillStyle=ink;ctx.beginPath();ctx.arc(W*.92,H*.06,H*.23,0,Math.PI*2);ctx.fill()}
 if(state.template==='minimal'){ctx.fillStyle=accent;ctx.fillRect(W*.075,H*.07,W*.85,H*.012)}
 if(state.template==='split'){ctx.fillStyle=accent;ctx.fillRect(0,0,W*.25,H)}
