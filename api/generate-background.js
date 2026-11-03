@@ -29,7 +29,24 @@ export default async function handler(req, res) {
       image: `data:${file.mediaType};base64,${base64}`,
     });
   } catch (error) {
-    console.error('Background generation failed:', error);
-    return res.status(500).json({ error: '背景生成暫時失敗，請稍後再試，並確認 AI Gateway 額度與金鑰。' });
+    const upstreamStatus = Number(error?.statusCode || error?.status || error?.response?.status || 0);
+    const errorType = String(error?.name || 'UnknownError').slice(0, 80);
+    console.error('Background generation failed:', {
+      name: errorType,
+      status: upstreamStatus || null,
+      message: String(error?.message || 'Unknown error').slice(0, 300),
+    });
+
+    let hint = '服務暫時異常，請稍後再試';
+    if (upstreamStatus === 401 || upstreamStatus === 403) hint = 'AI Gateway 金鑰驗證失敗，請檢查 Vercel 環境變數';
+    else if (upstreamStatus === 402) hint = 'AI Gateway 額度不足或預算已用完';
+    else if (upstreamStatus === 404) hint = 'AI 圖片模型不存在或目前無法使用';
+    else if (upstreamStatus === 429) hint = 'AI 請求過於頻繁，請稍後再試';
+    else if (upstreamStatus >= 500) hint = 'AI 模型服務暫時無法使用';
+
+    return res.status(502).json({
+      error: '背景生成失敗：' + hint,
+      diagnostic: { type: errorType, upstreamStatus: upstreamStatus || null },
+    });
   }
 }
