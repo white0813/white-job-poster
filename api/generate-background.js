@@ -1,6 +1,6 @@
 import { generateText } from 'ai';
 
-const MODEL = 'google/gemini-3.1-flash-image';
+const MODEL = 'google/gemini-3.1-flash-image-preview';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
