@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101b2d">
+<title>JOB POSTER｜招工海報工作室</title>
+<style>
+:root{--ink:#172235;--muted:#718096;--line:#e5eaf1;--paper:#f4f6f9;--navy:#101b2d;--accent:#e9a83b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer;border:0;border-radius:11px;padding:11px 15px;font-weight:750;transition:.15s}
+button:hover{transform:translateY(-1px)}
+.top{height:72px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 max(18px,calc((100% - 1440px)/2));position:sticky;top:0;z-index:10}
+.brandlock{display:flex;align-items:center;gap:12px}
+.mark{width:39px;height:39px;background:var(--navy);color:#fff;border-radius:12px;display:grid;place-items:center;font-weight:900;letter-spacing:-2px}
+.brandname{font-size:14px;font-weight:900;letter-spacing:.03em}
+.brandname small{display:block;font-size:9px;color:#8a96a8;letter-spacing:.2em;margin-top:3px}
+.top-actions{display:flex;gap:8px}
+.btn-light{background:#f0f3f7;color:#28364a}
+.btn-dark{background:var(--navy);color:#fff}
+.btn-gold{background:var(--accent);color:#1b2430}
+.btn-outline{background:#fff;border:1px solid #dce3ed;color:#344258}
+.hero{max-width:1440px;margin:0 auto;padding:34px 24px 24px;display:flex;align-items:end;justify-content:space-between;gap:18px}
+.eyebrow{font-size:10px;letter-spacing:.23em;font-weight:900;color:#a06c19}
+.hero h1{font-size:clamp(27px,4vw,43px);letter-spacing:-.045em;margin:8px 0}
+.hero p{margin:0;color:var(--muted);font-size:13px}
+.hero-tag{font-size:11px;letter-spacing:.13em;color:#68768a;background:white;border:1px solid var(--line);padding:10px 13px;border-radius:30px;white-space:nowrap}
+.workspace{max-width:1440px;margin:auto;padding:0 24px 60px;display:grid;grid-template-columns:minmax(320px,440px) minmax(0,1fr);gap:22px;align-items:start}
+.panel{background:#fff;border:1px solid var(--line);border-radius:17px;overflow:hidden;box-shadow:0 6px 24px #1b2a4108}
+.panel-head{padding:17px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+.step{width:27px;height:27px;background:#f5eddf;color:#9a6819;border-radius:9px;display:grid;place-items:center;font-size:12px;font-weight:900}
+.panel-head h2{font-size:14px;margin:0}
+.panel-body{padding:19px 20px}
+.section-label{font-size:10px;letter-spacing:.14em;color:#929eae;font-weight:900;margin:20px 0 12px}
+.section-label:first-child{margin-top:0}
+.field{margin-bottom:14px}
+.field label,.field .labelrow{display:flex;align-items:center;justify-content:space-between;font-size:12px;font-weight:800;margin-bottom:7px}
+.hint{font-size:10px;color:#9aa5b4;font-weight:500}
+.field input[type=text],.field input[type=tel],.field textarea,.field select{width:100%;border:1px solid #dfe5ed;border-radius:10px;padding:10px 11px;background:#fff;color:#1e2b3d;outline:none;font-size:13px}
+.field textarea{resize:vertical;min-height:66px;line-height:1.6}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:#bd8b3e;box-shadow:0 0 0 3px #e9a83b20}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.industry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.industry{border:1px solid #e1e6ee;background:#fff;color:#536176;border-radius:9px;padding:9px 5px;font-size:11px}
+.industry.active{background:#17263b;color:#fff;border-color:#17263b}
+.template-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.template{border:1px solid #e1e6ee;background:#fff;padding:8px;border-radius:10px;text-align:left;color:#526074}
+.template.active{border:2px solid #bd8b3e;padding:7px;background:#fffaf1}
+.template .thumb{height:47px;border-radius:6px;margin-bottom:7px;position:relative;overflow:hidden;background:linear-gradient(135deg,#1a2b45,#d49b45)}
+.template:nth-child(2) .thumb{background:linear-gradient(145deg,#f2e9d9 50%,#2d3d52 50%)}
+.template:nth-child(3) .thumb{background:linear-gradient(90deg,#e9a83b 0 22%,#192a43 22%)}
+.template:nth-child(4) .thumb{background:radial-gradient(circle at 70% 25%,#f3bd61,#1d304b 65%)}
+.template:nth-child(5) .thumb{background:linear-gradient(180deg,#edf0eb 0 48%,#344b43 48%)}
+.template:nth-child(6) .thumb{background:repeating-linear-gradient(135deg,#24344b 0 8px,#344961 8px 16px)}
+.template .thumb:after{content:"";position:absolute;left:9px;bottom:8px;width:45%;height:5px;background:#fff;border-radius:5px;box-shadow:0 -9px 0 -1px #ffffffaa}
+.template b{font-size:10px;display:block}
+.palette{display:grid;grid-template-columns:repeat(8,1fr);gap:7px}
+.swatch{height:29px;border-radius:8px;border:2px solid #fff;box-shadow:0 0 0 1px #dfe5ec}
+.swatch.active{box-shadow:0 0 0 2px #1d2c42}
+.custom-color{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:11px;color:#718096}
+.custom-color input{width:36px;height:30px;border:0;padding:0;background:transparent}
+.size-row{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.size-btn{background:#f3f5f8;color:#536176;border:1px solid transparent;padding:10px 5px;font-size:10px}
+.size-btn.active{background:#192a43;color:#fff}
+.ai-box{border:1px solid #f0dfc1;background:#fffaf1;border-radius:12px;padding:13px}
+.ai-box p{font-size:11px;line-height:1.6;color:#7b684b;margin:6px 0 10px}
+.ai-title{font-size:12px;font-weight:900;color:#76511a}
+.ai-box button{width:100%;background:#e9a83b;color:#222c3b}
+.demo-tag{display:inline-block;font-size:9px;padding:3px 6px;border-radius:20px;background:#f3e3c5;color:#805b21;margin-left:5px}
+.rightcol{min-width:0}
+.preview-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 12px}
+.preview-head h2{font-size:16px;margin:0}
+.preview-head p{font-size:11px;color:#8a96a8;margin:4px 0 0}
+.preview-actions{display:flex;gap:8px}
+.preview-stage{background:#e9edf2;border:1px solid #dfe5ec;border-radius:17px;padding:22px;display:flex;justify-content:center;align-items:flex-start;min-height:540px;overflow:auto}
+.poster-shell{width:min(100%,480px);display:flex;justify-content:center}
+.poster-shell canvas{display:block;width:100%;height:auto;box-shadow:0 12px 35px #16253b25;background:white}
+.below-preview{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:12px 3px;color:#8793a3;font-size:10px}
+.download{background:#192a43;color:white}
+.footer-note{font-size:10px;color:#97a2b1;text-align:center;padding:14px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:#17263b;color:white;padding:11px 16px;border-radius:10px;font-size:12px;display:none;z-index:30;box-shadow:0 8px 30px #0002}
+@media(max-width:900px){.workspace{grid-template-columns:1fr}.rightcol{order:-1}.preview-stage{min-height:0;padding:14px}.poster-shell{width:min(100%,390px)}.hero{padding-top:25px}.hero-tag{display:none}}
+@media(max-width:560px){.top{height:60px;padding:0 12px}.brandname{font-size:12px}.top-actions button{padding:9px 10px;font-size:10px}.hero{padding:22px 14px 18px}.hero h1{font-size:28px}.hero p{font-size:11px;line-height:1.6}.workspace{padding:0 12px 35px;gap:13px}.panel-body{padding:15px}.panel-head{padding:14px 15px}.preview-head{align-items:flex-start}.preview-head h2{font-size:14px}.preview-actions button{font-size:10px;padding:9px}.preview-stage{padding:10px}.poster-shell{width:min(100%,350px)}.industry-grid{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<header class="top"><div class="brandlock"><div class="mark">W.</div><div class="brandname">JOB POSTER｜招工海報工作室<small>MAKE GOOD WORK VISIBLE.</small></div></div><div class="top-actions"><button class="btn-light" id="resetBtn">重設</button><button class="btn-dark" id="saveBtn">儲存草稿</button></div></header>
+<section class="hero"><div><div class="eyebrow">WHITE CREATIVE TOOLKIT</div><h1>讓好工作，被更多人看見。</h1><p>挑選產業、編輯職缺資訊，打造一張清楚又吸睛的招募海報。</p></div><div class="hero-tag">✳　DESIGN YOUR NEXT HIRE</div></section>
+<main class="workspace">
+<section class="panel"><div class="panel-head"><span class="step">01</span><h2>建立你的招募內容</h2></div><div class="panel-body">
+<div class="section-label">選擇產業分類</div><div class="industry-grid" id="industries"></div>
+<div class="section-label">職缺基本資訊</div>
+<div class="field"><label>公司名稱</label><input id="company" type="text" value="白日夢生活選物" maxlength="32"></div>
+<div class="field"><label>職缺名稱</label><input id="job" type="text" value="門市夥伴｜正職・兼職皆可" maxlength="36"></div>
+<div class="two"><div class="field"><label>薪資待遇</label><input id="salary" type="text" value="月薪 32,000 起" maxlength="30"></div><div class="field"><label>工作地點</label><input id="location" type="text" value="台北市大安區" maxlength="30"></div></div>
+<div class="field"><label>工作時間</label><input id="hours" type="text" value="排班制｜每日 8 小時" maxlength="36"></div>
+<div class="field"><label>工作內容</label><textarea id="duties" maxlength="180">顧客服務與商品介紹
+商品陳列、補貨及環境維護
+協助門市日常營運</textarea></div>
+<div class="field"><label>員工福利</label><textarea id="benefits" maxlength="150">勞健保、員工購物優惠、生日禮金、完整教育訓練</textarea></div>
+<div class="field"><label>應徵條件</label><textarea id="requirements" maxlength="150">具服務熱忱、喜歡與人互動
+有無經驗皆可，願意學習</textarea></div>
+<div class="field"><label>聯絡方式</label><input id="contact" type="text" value="LINE：@whitejob｜電話：02-2345-6789" maxlength="60"></div>
+<div class="section-label">AI 招募文案輔助 <span class="demo-tag">示範模式</span></div>
+<div class="ai-box"><div class="ai-title">✦ 智慧文案小幫手</div><p>目前為本機示範模式，依照產業與職缺資訊產生文案範例；尚未連接外部 AI 服務。</p><button id="aiBtn">✦ 幫我優化招募文案</button></div>
+<div class="section-label">選擇海報模板</div><div class="template-grid" id="templates"></div>
+<div class="section-label">選擇主題配色</div><div class="palette" id="palette"></div><div class="custom-color"><input id="customColor" type="color" value="#d99b42"><span>自訂品牌主色</span></div>
+<div class="section-label">輸出尺寸</div><div class="size-row" id="sizes"><button class="size-btn active" data-size="portrait">社群貼文<br>1080×1350</button><button class="size-btn" data-size="story">限時動態<br>1080×1920</button><button class="size-btn" data-size="a4">A4 印刷<br>2480×3508</button></div>
+</div></section>
+<section class="rightcol"><div class="preview-head"><div><h2>即時海報預覽</h2><p>編輯左側資訊，畫面將同步更新</p></div><div class="preview-actions"><button class="btn-outline" id="refreshBtn">更新預覽</button><button class="download" id="downloadBtn">下載高畫質 PNG ↓</button></div></div><div class="preview-stage"><div class="poster-shell"><canvas id="poster" width="1080" height="1350" aria-label="招募海報即時預覽"></canvas></div></div><div class="below-preview"><span id="dimensionLabel">PNG｜1080 × 1350 px</span><span>WHITE · JOB POSTER STUDIO</span></div><div class="footer-note">你的資料與草稿僅保存在目前瀏覽器，不會自動上傳。</div></section>
+</main><div class="toast" id="toast"></div>
+<script>
+const $=id=>document.getElementById(id);
+const industries=['餐飲服務','零售門市','物流運輸','行政文書','科技資訊','教育補教','醫療照護','旅宿觀光','美容美髮','製造技術','設計創意','其他產業'];
+const templates=[['經典醒目','bold'],['質感留白','minimal'],['活力招募','split'],['都會專業','modern'],['溫暖親切','warm'],['潮流個性','urban']];
+const themes=[['暖金','#d99b42','#17263b','#fff8eb'],['海軍藍','#27496d','#f4f0e7','#17263b'],['森林綠','#47745d','#f5f1e8','#20372c'],['活力橘','#ef7d45','#fff3e9','#40251b'],['莓果紅','#a84452','#fff2f0','#3c2027'],['科技紫','#7564a8','#f5f1ff','#27203d'],['清新青','#3b9290','#f0fbf8','#183b3b'],['黑白極簡','#252b35','#f5f5f2','#20242a']];
+let state={industry:'餐飲服務',template:'bold',theme:0,color:themes[0][1],size:'portrait'};
+function buildChoices(){
+$('industries').innerHTML=industries.map(x=>`<button class="industry ${x===state.industry?'active':''}" data-industry="${x}">${x}</button>`).join('');
+$('templates').innerHTML=templates.map(([n,k])=>`<button class="template ${k===state.template?'active':''}" data-template="${k}"><div class="thumb"></div><b>${n}</b></button>`).join('');
+$('palette').innerHTML=themes.map(([n,c],i)=>`<button class="swatch ${i===state.theme?'active':''}" data-theme="${i}" title="${n}" style="background:${c}"></button>`).join('');
+}
+function getData(){return {company:$('company').value,job:$('job').value,salary:$('salary').value,location:$('location').value,hours:$('hours').value,duties:$('duties').value,benefits:$('benefits').value,requirements:$('requirements').value,contact:$('contact').value,industry:state.industry,template:state.template,color:state.color,size:state.size}}
+function wrapText(ctx,text,maxWidth,maxLines=8){let lines=[];String(text||'').split(/\n/).forEach(part=>{let line='';for(const ch of [...part]){if(ctx.measureText(line+ch).width>maxWidth&&line){lines.push(line);line=ch}else line+=ch}if(line)lines.push(line);if(!part)lines.push('')});return lines.slice(0,maxLines)}
+function drawPoster(){
+const c=$('poster'),ctx=c.getContext('2d'),d=getData();let W=1080,H=1350;
+if(state.size==='story')H=1920;
+if(state.size==='a4'){W=2480;H=3508}
+c.width=W;c.height=H;const accent=state.color,theme=themes[state.theme<0?0:state.theme],dark=theme[2],ink=theme[3];
+ctx.fillStyle=dark;ctx.fillRect(0,0,W,H);
+if(state.template==='bold'){ctx.fillStyle=accent;ctx.fillRect(0,0,W,H*.34);ctx.fillStyle=ink;ctx.beginPath();ctx.arc(W*.92,H*.06,H*.23,0,Math.PI*2);ctx.fill()}
+if(state.template==='minimal'){ctx.fillStyle=accent;ctx.fillRect(W*.075,H*.07,W*.85,H*.012)}
+if(state.template==='split'){ctx.fillStyle=accent;ctx.fillRect(0,0,W*.25,H)}
+if(state.template==='modern'){ctx.fillStyle=accent;ctx.fillRect(W*.72,0,W*.28,H*.38)}
+if(state.template==='warm'){ctx.fillStyle=accent;ctx.beginPath();ctx.arc(W*.82,H*.17,W*.22,0,Math.PI*2);ctx.fill()}
+if(state.template==='urban'){ctx.strokeStyle=accent;ctx.lineWidth=Math.max(3,W*.006);for(let i=-H;i<W;i+=W*.12){ctx.beginPath();ctx.moveTo(i,0);ctx.lineTo(i+H,H);ctx.stroke()}}
+const margin=W*.085;let x=state.template==='split'?W*.32:margin;let y=H*.075;const scale=W/1080;ctx.textBaseline='top';
+ctx.fillStyle=state.template==='bold'?'#fff':accent;ctx.font=`900 ${Math.round(24*scale)}px sans-serif`;ctx.fillText('WHITE / JOB POSTER',x,y);y+=42*scale;
+ctx.fillStyle=ink;ctx.font=`700 ${Math.round(22*scale)}px sans-serif`;ctx.fillText(d.company||'你的公司名稱',x,y);y+=65*scale;
+ctx.fillStyle=accent;ctx.font=`900 ${Math.round(23*scale)}px sans-serif`;ctx.fillText(`NOW HIRING · ${d.industry}`,x,y);y+=50*scale;
+ctx.fillStyle=ink;ctx.font=`900 ${Math.round(70*scale)}px sans-serif`;
+let title=wrapText(ctx,d.job||'加入我們的團隊',W-x-margin,3);title.forEach(line=>{ctx.fillText(line,x,y);y+=82*scale});y+=20*scale;
+ctx.fillStyle=accent;const pillH=72*scale;roundRect(ctx,x,y,Math.min(W*.82,ctx.measureText(d.salary||'薪資面議').width+56*scale),pillH,12*scale);ctx.fill();ctx.fillStyle='#fff';ctx.font=`900 ${Math.round(32*scale)}px sans-serif`;ctx.fillText(d.salary||'薪資面議',x+22*scale,y+18*scale);y+=pillH+45*scale;
+const bottomLimit=H*.88;const blocks=[['工作地點',d.location],['工作時間',d.hours],['工作內容',d.duties],['員工福利',d.benefits],['應徵條件',d.requirements]];
+for(const [label,value] of blocks){if(!value||y>bottomLimit-100*scale)continue;ctx.fillStyle=accent;ctx.font=`900 ${Math.round(23*scale)}px sans-serif`;ctx.fillText(label,x,y);y+=34*scale;ctx.fillStyle=ink;ctx.font=`500 ${Math.round(20*scale)}px sans-serif`;wrapText(ctx,value,W-x-margin,3).forEach(line=>{if(y<bottomLimit-15*scale){ctx.fillText(line,x,y);y+=27*scale}});y+=20*scale}
+const fy=H*.89;ctx.fillStyle=accent;roundRect(ctx,margin,fy,W-margin*2,H*.075,14*scale);ctx.fill();ctx.fillStyle='#fff';ctx.font=`900 ${Math.round(22*scale)}px sans-serif`;ctx.fillText('立即應徵 / APPLY NOW',margin+22*scale,fy+17*scale);ctx.font=`700 ${Math.round(20*scale)}px sans-serif`;ctx.fillText(d.contact||'請填寫聯絡方式',margin+22*scale,fy+48*scale);
+ctx.fillStyle=ink;ctx.globalAlpha=.7;ctx.font=`600 ${Math.round(15*scale)}px sans-serif`;ctx.fillText('MAKE GOOD WORK VISIBLE.',margin,H*.975);ctx.globalAlpha=1;
+$('dimensionLabel').textContent=`PNG｜${W} × ${H} px`;
+}
+function roundRect(ctx,x,y,w,h,r){ctx.beginPath();ctx.roundRect(x,y,w,h,r)}
+function toast(s){$('toast').textContent=s;$('toast').style.display='block';clearTimeout(window._toastTimer);window._toastTimer=setTimeout(()=>$('toast').style.display='none',2400)}
+function refreshChoices(){buildChoices();drawPoster()}
+$('industries').addEventListener('click',e=>{let b=e.target.closest('[data-industry]');if(b){state.industry=b.dataset.industry;refreshChoices()}});
+$('templates').addEventListener('click',e=>{let b=e.target.closest('[data-template]');if(b){state.template=b.dataset.template;refreshChoices()}});
+$('palette').addEventListener('click',e=>{let b=e.target.closest('[data-theme]');if(b){state.theme=+b.dataset.theme;state.color=themes[state.theme][1];$('customColor').value=state.color;refreshChoices()}});
+$('customColor').addEventListener('input',e=>{state.color=e.target.value;state.theme=-1;buildChoices();drawPoster()});
+document.querySelectorAll('.size-btn').forEach(b=>b.addEventListener('click',()=>{state.size=b.dataset.size;document.querySelectorAll('.size-btn').forEach(x=>x.classList.toggle('active',x===b));drawPoster()}));
+document.querySelectorAll('input[type=text],textarea').forEach(el=>el.addEventListener('input',drawPoster));
+$('refreshBtn').onclick=()=>{drawPoster();toast('海報預覽已更新')};
+$('downloadBtn').onclick=()=>{drawPoster();const a=document.createElement('a');a.download=`JOB-POSTER-${Date.now()}.png`;a.href=$('poster').toDataURL('image/png');a.click();toast('高畫質 PNG 已準備下載')};
+$('saveBtn').onclick=()=>{try{localStorage.setItem('whiteJobPosterDraft',JSON.stringify(getData()));toast('草稿已儲存在此瀏覽器')}catch(e){toast('無法儲存，請稍後再試')}};
+$('resetBtn').onclick=()=>{if(confirm('確定要重設所有招募內容？'))location.reload()};
+$('aiBtn').onclick=()=>{const industry=state.industry;const sample={'餐飲服務':'親切接待顧客，與團隊一起提供愉快的用餐體驗。','零售門市':'用熱情介紹商品、整理陳列，打造舒適購物空間。','物流運輸':'細心完成理貨、出貨與配送流程。','行政文書':'協助文件整理、資料建檔與日常行政支援。','科技資訊':'參與產品開發與技術協作。','教育補教':'陪伴學員探索知識、建立學習信心。','醫療照護':'以耐心與專業提供照護支持。','旅宿觀光':'以細緻服務迎接旅人。','美容美髮':'依照顧客需求提供專業服務。','製造技術':'依照標準流程執行生產與品質檢查。','設計創意':'將創意整理成清楚、有感染力的視覺作品。','其他產業':'和夥伴共同完成工作，持續學習與成長。'};$('duties').value=sample[industry]+'\n與團隊合作完成每日工作目標\n維護工作環境與服務品質';$('benefits').value='完善教育訓練｜友善團隊氛圍｜勞健保';$('requirements').value='具責任感、願意主動學習\n重視溝通合作，無經驗可培訓';drawPoster();toast('已產生示範文案，可自行修改')};
+try{const saved=JSON.parse(localStorage.getItem('whiteJobPosterDraft')||'null');if(saved){for(const id of ['company','job','salary','location','hours','duties','benefits','requirements','contact'])if(saved[id]!==undefined)$(id).value=saved[id];state.industry=saved.industry||state.industry;state.template=saved.template||state.template;state.color=saved.color||state.color;state.size=saved.size||state.size;state.theme=themes.findIndex(t=>t[1]===state.color);if(state.theme<0)state.theme=-1}}catch(e){}
+buildChoices();drawPoster();
+</script>
+</body>
+</html>
