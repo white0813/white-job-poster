@@ -178,7 +178,7 @@ $('bgBtn').onclick=async()=>{
  try{
   const response=await fetch('/api/generate-background',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt})});
   const result=await response.json();
-  if(!response.ok)throw new Error(result.error||'生成失敗，請稍後再試');
+  if(!response.ok){const code=result.diagnostic?.upstreamStatus?`（錯誤碼 ${result.diagnostic.upstreamStatus}）`:'';throw new Error((result.error||'生成失敗，請稍後再試')+code)}
   const img=new Image();
   img.onload=()=>{backgroundImage=img;drawPoster();status.textContent='背景已生成並套用！可重新生成或恢復純色背景。';toast('AI 背景已套用')};
   img.onerror=()=>{status.textContent='圖片載入失敗，請再試一次'};
